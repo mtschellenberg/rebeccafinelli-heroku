@@ -1,0 +1,24 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="main-site.html"></head><body><dom-module id="about-page">
+  <template>
+    <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        height: 100%;
+      }
+
+      paper-material > div {
+        max-width: 600px;
+      }
+    </style>
+
+    <iron-ajax auto="" handle-as="text" url="/read/[[siteName]]/about.txt" last-response="{{_response}}"></iron-ajax>
+
+    <paper-material class="layout horizontal center-justified" elevation="0">
+      <div class="small-text">[[_response]]</div>
+    </paper-material>
+  </template>
+
+  <script>Polymer({is:"about-page",properties:{siteName:{type:String},_response:{type:String}}});</script>
+</dom-module>
+</body></html>

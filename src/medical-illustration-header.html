@@ -1,0 +1,25 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="main-site.html"></head><body><dom-module id="medical-illustration-header">
+  <template>
+    <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .logo-background {
+        margin: 20px;
+      }
+
+      .logo {
+        --iron-image-height: 150px;
+      }
+    </style>
+
+    <div class="layout horizontal flex center-justified logo-background">
+      <iron-image class="logo" src="/images/RebeccaFinelliLogo.png"></iron-image>
+    </div>
+  </template>
+
+  <script>Polymer({is:"medical-illustration-header",properties:{}});</script>
+</dom-module>
+</body></html>

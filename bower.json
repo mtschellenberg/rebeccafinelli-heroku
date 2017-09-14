@@ -1,0 +1,22 @@
+{
+  "name": "rebeccafinelli.com",
+  "description": "Website for Rebecca Finelli Fine Art and Medical Illustration",
+  "authors": [
+    "M. Thomas Schellenberg"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.6.0",
+    "app-layout": "PolymerElements/app-layout#^0.10.0",
+    "app-route": "PolymerElements/app-route#^0.9.0",
+    "fontawesome-iconset": "https://github.com/vangware/fontawesome-iconset.git#7f5826f89bac4e6d4fa61f64a9fe13978aaa7b38",
+    "iron-elements": "PolymerElements/iron-elements#^1.0.10",
+    "paper-carousel": "Redbility/paper-carousel#^1.1.5",
+    "paper-elements": "PolymerElements/paper-elements#~1.0.7",
+    "social-iconset": "^0.0.5"
+  },
+  "devDependencies": {
+    "web-component-tester": "^4.0.0"
+  },
+  "private": true
+}

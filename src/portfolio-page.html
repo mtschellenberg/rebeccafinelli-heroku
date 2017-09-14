@@ -1,0 +1,95 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="main-site.html"></head><body><dom-module id="portfolio-page">
+  <template>
+    <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        height: 100%;
+      }
+
+      iron-image {
+        height: 100%;
+        width: 100%;
+        max-width: 800px;
+        --iron-image-height: 100%;
+        --iron-image-width: 100%;
+      }
+
+      paper-carousel {
+        height: 200px;
+      }
+
+      paper-carousel ::content iron-icon {
+        color: #111;
+        height: 50px;
+        width: 50px;
+      }
+
+      paper-carousel ::content .paper-carousel_wrapper {
+        top: 0px;
+      }
+
+      paper-carousel ::content .paper-carousel_controls {
+        left: 5px;
+        right: 5px;
+      }
+
+      paper-carousel ::content .paper-carousel_controls_arrow--disabled {
+        opacity: 0.5;
+      }
+
+      paper-carousel ::content .paper-carousel_dots {
+        bottom: 0;
+      }
+
+      paper-carousel ::content .paper-carousel_dot.active {
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+      }
+
+      paper-carousel ::content .paper-carousel_dot a {
+        padding: 5px 10px;
+      }
+
+      paper-carousel ::content .paper-carousel_dot a:before {
+        border-radius: 50%;
+        height: 20px;
+        width: 20px;
+      }
+    </style>
+
+    <iron-ajax auto="" url="/folder/[[siteName]]" last-response="{{_imageFolders}}"></iron-ajax>
+
+    <paper-material class="layout horizontal center-justified" elevation="0" style="display:block">
+      <paper-carousel items="5" responsive="1225:6, 1020:5, 815:4, 610:3, 405:2, 200:1" previcon="fa:arrow-circle-left" nexticon="fa:arrow-circle-right" controls="" dots="" dottext="false">
+
+        <template is="dom-repeat" items="[[_imageObjects]]" as="image">
+          <div>
+            <image-request carousel="[[_carousel]]" image-folder="[[image.folder]]" image-id="[[index]]" image-src="[[_createImageSrc(image.site, image.folder, image.thumbnail)]]" request-caption-url="[[_createRequestCaptionUrl(image.site, image.folder)]]" request-files-url="[[_createRequestFilesUrl(image.site, image.folder)]]" request-title-url="[[_createRequestTitleUrl(image.site, image.folder)]]" caption-response="{{image.caption}}" image-response="{{image.big}}" thumbnail-response="{{image.thumbnail}}" title-response="{{image.title}}" on-tap="_showImage">
+            </image-request>
+          </div>
+        </template>
+      </paper-carousel>
+
+      <template is="dom-if" if="[[_selectedImage.big]]">
+        <div class="margin">
+          <div class="layout horizontal center-justified large-text">[[_selectedImage.title]]</div>
+          <div class="layout horizontal center-justified margin">
+            <template is="dom-if" if="[[_isSwfImage(_selectedImage.big)]]">
+              <object class="layout horizontal center-justified" type="application/x-shockwave-flash" data$="[[_createImageSrc(_selectedImage.site, _selectedImage.folder, _selectedImage.big)]]" height="300" width="450" title$="[[_selectedImage.title]]">
+              </object>
+            </template>
+            <template is="dom-if" if="[[!_isSwfImage(_selectedImage.big)]]">
+              <iron-image class="layout horizontal center-justified" src$="[[_createImageSrc(_selectedImage.site, _selectedImage.folder, _selectedImage.big)]]" title$="[[_selectedImage.title]]">
+              </iron-image>
+            </template>
+          </div>
+          <div class="layout horizontal center-justified small-text">[[_selectedImage.caption]]</div>
+        </div>
+      </template>
+    </paper-material>
+  </template>
+
+  <script>Polymer({is:"portfolio-page",properties:{siteName:{observer:"_handleSiteChange",type:String},_carousel:{type:Object},_imageObjects:{computed:"_createImageObjects(_imageFolders.splices)",observer:"_redrawCarousel",type:Array},_imageFolders:{type:Array},_selectedImage:{type:Object,value:function(){return{}}}},attached:function(){this._carousel=this.$$("paper-carousel")},_createImageObjects:function(){var e=this.siteName;return this._imageFolders.map(function(t){return{site:e,folder:t}})},_createImageSrc:function(e,t,r){return"/data/"+e+"/"+t+"/"+r},_createRequestCaptionUrl:function(e,t){return"/read/"+e+"/"+t+"/"+t+"_caption.txt"},_createRequestFilesUrl:function(e,t){return"/folder/"+e+"/"+t},_createRequestTitleUrl:function(e,t){return"/read/"+e+"/"+t+"/"+t+"_title.txt"},_handleSiteChange:function(){this.set("_imageFolders",[]),this.set("_selectedImage",{})},_isSwfImage:function(e){return e&&".swf"===e.substring(e.indexOf("."))},_redrawCarousel:function(){this.$$("paper-carousel").refresh()},_showImage:function(e){var t=e.target.id;if(t){var r=this._imageObjects[t];this.set("_selectedImage",{big:r.big,caption:r.caption,folder:r.folder,site:r.site,title:r.title})}}});</script>
+</dom-module>
+</body></html>

@@ -1,0 +1,37 @@
+{
+  "name": "rebeccafinelliv2",
+  "version": "1.0.0",
+  "description": "Rebecca Finelli's Website",
+  "keywords": [
+    "OpenShift",
+    "Node.js",
+    "application",
+    "openshift"
+  ],
+  "author": {
+    "name": "Thomas Schellenberg",
+    "email": "mtschellenberg@gmail.org",
+    "url": "https://github.com/mtschellenberg"
+  },
+  "homepage": "https://github.com/mtschellenberg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mtschellenberg"
+  },
+
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+
+  "dependencies": {
+    "express": "~3.4.4"
+  },
+  "devDependencies": {},
+  "bundleDependencies": [],
+
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  }
+}

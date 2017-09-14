@@ -1,0 +1,27 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="main-site.html"></head><body><dom-module id="image-request">
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: 200px;
+      }
+
+      img {
+        cursor: pointer;
+        width: 200px;
+      }
+
+      iron-image {
+        --iron-image-width: 200px;
+      }
+    </style>
+
+    <iron-ajax auto="" handle-as="text" url="[[requestCaptionUrl]]" last-response="{{captionResponse}}"></iron-ajax>
+    <iron-ajax auto="" url="[[requestFilesUrl]]" last-response="{{_filesResponse}}"></iron-ajax>
+    <iron-ajax auto="" handle-as="text" url="[[requestTitleUrl]]" last-response="{{titleResponse}}"></iron-ajax>
+    <img id$="[[imageId]]" src$="[[imageSrc]]" title$="[[titleResponse]]">
+  </template>
+
+  <script>Polymer({is:"image-request",properties:{carousel:{type:Object},imageFolder:{type:String},imageId:{type:String},imageSrc:{observer:"_handleImageSrcChange",type:String},requestCaptionUrl:{type:String},requestFilesUrl:{type:String},requestTitleUrl:{type:String},captionResponse:{notify:!0,type:String},imageResponse:{computed:"_getImage(imageFolder, _filesResponse.length)",notify:!0,type:String},thumbnailResponse:{computed:"_getThumbnail(imageFolder, _filesResponse.length)",notify:!0,type:String},titleResponse:{notify:!0,type:String},_filesResponse:{type:String}},_getImage:function(){var e=this,t=this._filesResponse.filter(function(t){return t.indexOf(".")>=0&&t.substring(0,t.indexOf("."))===e.imageFolder+"_image"});return t.length?t[0]:""},_getThumbnail:function(){var e=this,t=this._filesResponse.filter(function(t){return t.indexOf(".")>=0&&t.substring(0,t.indexOf("."))===e.imageFolder+"_thumbnail"});return t.length?t[0]:""},_handleImageSrcChange:function(){this.carousel.refresh()}});</script>
+</dom-module>
+</body></html>

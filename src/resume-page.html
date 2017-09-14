@@ -1,0 +1,20 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="main-site.html"></head><body><dom-module id="resume-page">
+  <template>
+    <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        height: 100%;
+      }
+    </style>
+
+
+    <paper-material class="layout horizontal center-justified" elevation="0">
+      
+      <a class="small-text" href="/download/[[siteName]]/resume.pdf" target="_blank" download="">Rebecca's [[siteText]] Resume</a>
+    </paper-material>
+  </template>
+
+  <script>Polymer({is:"resume-page",properties:{siteName:{type:String},siteText:{type:String},_response:{type:Object}},_downloadResume:function(){console.log("response",this._response),window.open("data:application/pdf,"+this._response,"resume.pdf")}});</script>
+</dom-module>
+</body></html>

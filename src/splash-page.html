@@ -1,0 +1,70 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="main-site.html"></head><body><dom-module id="splash-page">
+  <template>
+    <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
+    <style>
+      :host {
+        display: block;
+        height: 100%;
+      }
+
+      .splash-head {
+        font-size: 40px;
+        font-weight: 600;
+        padding: 20px;
+      }
+
+      .splash-body > div {
+        width: 50%;
+      }
+
+      paper-material {
+        @apply(--shadow-elevation-4dp);
+        cursor: pointer;
+        font-size: 20px;
+        margin: 20px;
+        padding: 20px;
+      }
+
+      paper-material:hover {
+        @apply(--shadow-elevation-16dp);
+        font-weight: bold;
+      }
+
+      paper-material > div {
+        font-size: 30px;
+        font-weight: 500;
+        margin-bottom: 20px;
+      }
+
+      iron-image {
+        height: auto;
+        width: auto;
+      }
+    </style>
+
+    <div class="layout vertical center">
+    <div class="splash-head layout horizontal center center-justified">
+      Rebecca Finelli, Artist &amp; Illustrator
+    </div>
+
+    <div class="splash-body layout horizontal center center-justified">
+      <div class="layout vertical center">
+        <paper-material elevation="0" animated="" on-tap="_chooseFineArt">
+          <div class="layout horizontal center-justified">Fine Arts</div>
+          <iron-image src="/images/FineArtSplash.jpg"></iron-image>
+        </paper-material>
+      </div>
+
+      <div class="layout vertical center">
+        <paper-material elevation="0" animated="" on-tap="_chooseMedical">
+          <div class="layout horizontal center-justified">Medical Illustration</div>
+          <iron-image src="/images/MedicalIllustrationSplash.jpg"></iron-image>
+        </paper-material>
+      </div>
+    </div>
+    </div>
+  </template>
+
+  <script>Polymer({is:"splash-page",properties:{site:{notify:!0,type:String}},_chooseFineArt:function(){this.set("site","finearts")},_chooseMedical:function(){this.set("site","medical")}});</script>
+</dom-module>
+</body></html>

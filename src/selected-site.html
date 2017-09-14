@@ -1,0 +1,115 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="main-site.html"></head><body><dom-module id="selected-site">
+  <template>
+    <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        height: 100%;
+        --paper-toolbar-background: red;
+      }
+
+      paper-toolbar {
+        --paper-toolbar-color: #111;
+        --paper-toolbar-height: 50px;
+        --paper-toolbar-content: {
+          padding: 0 40px;
+        }
+      }
+
+      paper-tabs {
+        --paper-tabs: {
+          height: 50px;
+          font-size: 20px;
+        };
+      }
+
+      paper-tab {
+        @apply(--layout-flex-none);
+        --paper-tab: {
+          padding: 0 10px;
+        };
+      }
+
+      paper-toolbar.finearts paper-tab:hover {
+        color: darkcyan;
+      }
+
+      paper-toolbar.medical paper-tab:hover {
+        color: rgb(237, 50, 38);
+      }
+
+      paper-tab ::content .tab-content.paper-tab {
+        opacity: 1.0;
+      }
+
+      iron-icon {
+        --iron-icon-fill-color: #111;
+        margin-right: 10px;
+      }
+
+      paper-toolbar.finearts paper-tab:hover iron-icon ::content svg path {
+        fill: darkcyan;
+      }
+
+      paper-toolbar.medical paper-tab:hover iron-icon ::content svg path {
+        fill: rgb(237, 50, 38);
+      }
+
+      iron-pages {
+        height: 100%;
+      }
+    </style>
+
+    <template is="dom-if" if="[[_equals(siteName, 'finearts')]]">
+      <fine-arts-header></fine-arts-header>
+    </template>
+
+    <template is="dom-if" if="[[_equals(siteName, 'medical')]]">
+      <medical-illustration-header></medical-illustration-header>
+    </template>
+
+    <paper-toolbar class$="[[siteName]]">
+      <div class="layout horizontal flex">
+        <paper-tabs class="flex" attr-for-selected="name" fallback-selection="portfolio" noink="" selected="{{page}}">
+          <paper-tab name="portfolio">
+            <iron-icon icon="[[siteIcon]]"></iron-icon>
+            <span>Portfolio</span>
+          </paper-tab>
+          <paper-tab name="about">
+            <iron-icon icon="social:person"></iron-icon>
+            <span>About</span>
+          </paper-tab>
+          <paper-tab name="contact">
+            <iron-icon icon="communication:email"></iron-icon>
+            <span>Contact</span>
+          </paper-tab>
+          <paper-tab name="resume">
+            <iron-icon icon="editor:insert-drive-file"></iron-icon>
+            <span>Resume</span>
+          </paper-tab>
+          <span class="flex"></span>
+          <template is="dom-if" if="[[_equals(siteName, 'finearts')]]">
+            <paper-tab on-tap="_goToInstagram">
+              <iron-icon icon="social-iconset:instagram"></iron-icon>
+              <span>Instagram</span>
+            </paper-tab>
+          </template>
+          <paper-tab on-tap="_goToSite">
+            <iron-icon icon="[[goToSiteIcon]]"></iron-icon>
+            <span>[[goToSiteText]]</span>
+          </paper-tab>
+        </paper-tabs>
+      </div>
+    </paper-toolbar>
+
+    <iron-pages attr-for-selected="name" fallback-selection="portfolio" selected="[[page]]">
+      <portfolio-page class="layout horizontal center-justified" name="portfolio" site-name="[[siteName]]"></portfolio-page>
+      <about-page class="layout horizontal center-justified" name="about" site-name="[[siteName]]"></about-page>
+      <contact-page class="layout horizontal center-justified" name="contact" site-name="[[siteName]]"></contact-page>
+      <resume-page class="layout horizontal center-justified" name="resume" site-name="[[siteName]]" site-text="[[siteText]]"></resume-page>
+    </iron-pages>
+  </template>
+
+  <script>Polymer({is:"selected-site",properties:{goToSiteIcon:{type:String},goToSiteName:{type:String},goToSiteText:{type:String},page:{notify:!0,type:String},siteIcon:{type:String},siteName:{notify:!0,observer:"_updateToolbarStyle",type:String},siteText:{type:String}},_equals:function(t,e){return t===e},_goToInstagram:function(){window.open("https://www.instagram.com/finellifinearts/")},_goToSite:function(){this.set("siteName",this.goToSiteName)},_updateToolbarStyle:function(t){"finearts"===t&&(this.customStyle["--paper-toolbar-background"]="floralwhite",this.customStyle["--paper-tabs-selection-bar-color"]="darkcyan"),"medical"===t&&(this.customStyle["--paper-toolbar-background"]="white",this.customStyle["--paper-tabs-selection-bar-color"]="rgb(237, 50, 38)"),this.updateStyles()}});</script>
+</dom-module>
+</body></html>
